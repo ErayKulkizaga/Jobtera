@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Jobtera</title>
+  <link rel="stylesheet" href="splash.css" />
+</head>
+<body>
+  <div class="splash">
+
+    <!-- Top gradient bar via ::before pseudo element in CSS -->
+
+    <!-- Logo + pulse rings + sparkles -->
+    <div class="logo-wrap">
+      <div class="ring r1"></div>
+      <div class="ring r2"></div>
+      <div class="ring r3"></div>
+
+      <div class="logo-box">
+        <svg width="34" height="34" viewBox="0 0 24 24" fill="none"
+             stroke="white" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+          <rect x="2" y="7" width="20" height="14" rx="2"/>
+          <path d="M16 7V5a2 2 0 0 0-4 0v2"/>
+          <line x1="12" y1="12" x2="12" y2="16"/>
+          <line x1="10" y1="14" x2="14" y2="14"/>
+        </svg>
+
+        <!-- Sparkle burst (JS sets --angle inline) -->
+        <div class="sparks" id="sparks"></div>
+      </div>
+    </div>
+
+    <h1 class="name">Job<span class="accent">ter</span>a</h1>
+    <p class="tagline">İş başvurularını kolayca takip et</p>
+
+    <!-- Progress bar -->
+    <div class="progress-wrap">
+      <div class="progress-track">
+        <div class="progress-fill" id="progress-fill"></div>
+      </div>
+    </div>
+
+    <div class="version">v1.1.0</div>
+  </div>
+
+  <script>
+    /* ── Sparkle burst ─────────────────────────────────────────────── */
+    (function buildSparks() {
+      const container = document.getElementById('sparks');
+      for (let i = 0; i < 8; i++) {
+        const s = document.createElement('div');
+        s.className = 'spark';
+        s.style.setProperty('--angle', (i * 45) + 'deg');
+        s.style.animationDelay = (.28 + i * .04) + 's';
+        container.appendChild(s);
+      }
+    })();
+
+    /* ── Apple-like startup "bong" ─────────────────────────────────── */
+    function playAppleBong() {
+      try {
+        const ctx    = new (window.AudioContext || window.webkitAudioContext)();
+        const master = ctx.createGain();
+        const comp   = ctx.createDynamicsCompressor();
+        comp.threshold.value = -18; comp.knee.value = 8;
+        comp.ratio.value = 3; comp.attack.value = .002; comp.release.value = .6;
+        master.gain.value = .55;
+        master.connect(comp); comp.connect(ctx.destination);
+
+        const voices = [
+          { freq:155.56, amp:.30, decay:4.2 },
+          { freq:311.13, amp:.50, decay:4.0 },
+          { freq:391.99, amp:.30, decay:3.6 },
+          { freq:466.16, amp:.22, decay:3.2 },
+          { freq:622.25, amp:.14, decay:2.8 },
+          { freq:933.32, amp:.07, decay:2.0 },
+        ];
+
+        voices.forEach(({ freq, amp, decay }) => {
+          const osc = ctx.createOscillator(), env = ctx.createGain();
+          osc.type = 'sine'; osc.frequency.value = freq;
+          osc.connect(env); env.connect(master);
+          const t = ctx.currentTime;
+          env.gain.setValueAtTime(0, t);
+          env.gain.linearRampToValueAtTime(amp, t + .008);
+          env.gain.exponentialRampToValueAtTime(.0001, t + decay);
+          osc.start(t); osc.stop(t + decay + .1);
+
+          const osc2 = ctx.createOscillator(), env2 = ctx.createGain();
+          osc2.type = 'sine'; osc2.frequency.value = freq * 2;
+          osc2.connect(env2); env2.connect(master);
+          env2.gain.setValueAtTime(0, t);
+          env2.gain.linearRampToValueAtTime(amp * .06, t + .008);
+          env2.gain.exponentialRampToValueAtTime(.0001, t + decay * .5);
+          osc2.start(t); osc2.stop(t + decay);
+        });
+
+        setTimeout(() => {
+          voices.slice(0, 3).forEach(({ freq, amp, decay }) => {
+            const osc = ctx.createOscillator(), env = ctx.createGain();
+            osc.type = 'sine'; osc.frequency.value = freq;
+            osc.connect(env); env.connect(master);
+            const t = ctx.currentTime;
+            env.gain.setValueAtTime(0, t);
+            env.gain.linearRampToValueAtTime(amp * .08, t + .02);
+            env.gain.exponentialRampToValueAtTime(.0001, t + decay * .6);
+            osc.start(t); osc.stop(t + decay);
+          });
+        }, 85);
+      } catch(e) {}
+    }
+
+    window.addEventListener('DOMContentLoaded', () => {
+      setTimeout(playAppleBong, 180);
+      if (window.trackjob && window.trackjob.splashReady) {
+        window.trackjob.splashReady();
+      }
+    });
+  </script>
+</body>
+</html>

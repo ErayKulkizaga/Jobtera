@@ -1,0 +1,59 @@
+{
+  "name": "jobtera",
+  "version": "1.0.0",
+  "description": "Offline job application tracker — iş başvurularını takip et",
+  "author": "Jobtera",
+  "main": "main.js",
+  "scripts": {
+    "start": "electron .",
+    "build": "electron-packager . Jobtera --platform=win32 --arch=x64 --out=dist --overwrite --asar",
+    "build:portable": "electron-builder --win portable",
+    "build:installer": "electron-builder --win nsis"
+  },
+  "build": {
+    "appId": "com.jobtera.app",
+    "productName": "Jobtera",
+    "copyright": "Copyright © 2026",
+    "directories": {
+      "output": "dist"
+    },
+    "files": [
+      "main.js",
+      "preload.js",
+      "renderer/**/*"
+    ],
+    "win": {
+      "target": [
+        {
+          "target": "portable",
+          "arch": [
+            "x64"
+          ]
+        },
+        {
+          "target": "nsis",
+          "arch": [
+            "x64"
+          ]
+        }
+      ],
+      "sign": false,
+      "signingHashAlgorithms": []
+    },
+    "nsis": {
+      "oneClick": false,
+      "allowToChangeInstallationDirectory": true,
+      "createDesktopShortcut": true,
+      "createStartMenuShortcut": true,
+      "shortcutName": "Jobtera"
+    },
+    "portable": {
+      "artifactName": "Jobtera-Portable-${version}.exe"
+    }
+  },
+  "devDependencies": {
+    "@electron/packager": "^19.1.0",
+    "electron": "^28.1.0",
+    "electron-builder": "^24.9.1"
+  }
+}
