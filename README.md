@@ -6,7 +6,7 @@
 
 **Jobtera**, iş başvurularınızı bilgisayarınızda **çevrimdışı** tutmanız için tasarlanmış, Türkçe arayüzlü bir **masaüstü takip uygulamasıdır**. [Electron](https://www.electronjs.org/) ile yazılmıştır; verileriniz bulutta değil, kendi kullanıcı dizininizde saklanır.
 
-> Bu depo GitHub üzerinde **TrackJoB** adıyla yayınlanabilir; uygulama adı **Jobtera**dır.
+> GitHub’daki depo adı **Jobtera**dır (`ErayKulkizaga/Jobtera`). Yerel klasör adı farklı olabilir.
 
 ---
 
@@ -62,8 +62,8 @@
 2. Depoyu klonlayın:
 
    ```bash
-   git clone https://github.com/ErayKulkizaga/TrackJoB.git
-   cd TrackJoB
+   git clone https://github.com/ErayKulkizaga/Jobtera.git
+   cd Jobtera
    ```
 
 3. Bağımlılıkları yükleyin:
@@ -129,7 +129,7 @@ Ayarlar içinde **“Veri klasörünü aç”** ve **“Yedek klasörü”** ile
 ## Proje yapısı
 
 ```
-TrackJoB/
+Jobtera/
 ├── main.js           # Electron ana süreç (pencere, IPC, dosya I/O)
 ├── preload.js        # Güvenli renderer köprüsü
 ├── package.json
@@ -150,7 +150,7 @@ TrackJoB/
 3. Değişikliklerinizi anlamlı commit mesajlarıyla işleyin.
 4. Dalınızı gönderin ve bir Pull Request açın.
 
-Hata bildirimi ve öneriler için [Issues](https://github.com/ErayKulkizaga/TrackJoB/issues) kullanabilirsiniz.
+Hata bildirimi ve öneriler için [Issues](https://github.com/ErayKulkizaga/Jobtera/issues) kullanabilirsiniz.
 
 ---
 
