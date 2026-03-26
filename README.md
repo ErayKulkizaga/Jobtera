@@ -6,8 +6,6 @@
 
 **Jobtera**, iş başvurularınızı bilgisayarınızda **çevrimdışı** tutmanız için tasarlanmış, Türkçe arayüzlü bir **masaüstü takip uygulamasıdır**. [Electron](https://www.electronjs.org/) ile yazılmıştır; verileriniz bulutta değil, kendi kullanıcı dizininizde saklanır.
 
-> GitHub’daki depo adı **Jobtera**dır (`ErayKulkizaga/Jobtera`). Yerel klasör adı farklı olabilir.
-
 ---
 
 ## İçindekiler
